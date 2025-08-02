@@ -1,0 +1,288 @@
+/* -- Google Fonts & Global Styles -- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --danger-color: #dc3545;
+    --danger-hover: #c82333;
+    --warning-color: #ffc107;
+    --warning-hover: #e0a800;
+    --light-color: #f8f9fa;
+    --dark-color: #212529; /* Darkened for better contrast */
+    --text-color: #343a40;
+    
+    /* Updated background and card styles */
+    --card-bg: rgba(255, 255, 255, 0.65); /* Semi-transparent white for glass effect */
+    --border-color: rgba(255, 255, 255, 0.25);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* --- NEW: Beautiful Gradient Background --- */
+    background: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+    background-size: cover;
+    min-height: 100vh;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* -- Header & Main Layout -- */
+header {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+header h1 {
+    color: white;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+header p {
+    color: white;
+    opacity: 0.9;
+}
+
+main {
+    display: flex;
+    max-width: 1200px;
+    margin: 2rem auto;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+/* -- Menu Sidebar & Content Area (Frosted Glass Effect) -- */
+.menu, .view {
+    /* --- NEW: Frosted Glass Effect --- */
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.menu {
+    flex: 0 0 250px;
+    padding: 1rem;
+    align-self: flex-start;
+}
+
+.content {
+    flex: 1;
+}
+
+.view {
+    padding: 2rem;
+    display: none; /* Views are hidden by default */
+}
+
+.view.active-view {
+    display: block; /* The active view is shown */
+}
+
+/* -- NEW: Welcome View Icon Styling -- */
+.welcome-icon {
+    font-size: 4rem;
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+#welcome-view h3 {
+    text-align: center;
+}
+#welcome-view p {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+
+.menu-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.menu-button i {
+    width: 20px;
+    color: var(--primary-color); /* Make icons colored by default */
+    transition: color 0.2s ease;
+}
+
+.menu-button:hover, .menu-button.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.menu-button:hover i, .menu-button.active i {
+    color: white;
+}
+
+.view h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* -- Forms & Inputs -- */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc; /* Solid border for better visibility on glass */
+    background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent input */
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* -- Buttons -- */
+.btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-primary:hover { background-color: var(--primary-hover); }
+.btn-danger { background-color: var(--danger-color); color: white; }
+.btn-danger:hover { background-color: var(--danger-hover); }
+.btn-warning { background-color: var(--warning-color); color: var(--dark-color); }
+.btn-warning:hover { background-color: var(--warning-hover); }
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+}
+
+/* -- Table Styling -- */
+#accountsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#accountsTable th, #accountsTable td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#accountsTable thead th {
+    font-weight: 600;
+    color: var(--dark-color);
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#accountsTable tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+#accountsTable tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* -- Other Components -- */
+#message-area {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(20px);
+}
+
+#message-area.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#accountDetails {
+    margin-top: 1.5rem;
+    background-color: rgba(231, 243, 255, 0.8);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary-color);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* -- Responsive Design -- */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    .menu {
+        flex: 0 0 auto;
+        display: flex; /* Changed for horizontal scroll */
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0; /* Adjust padding for scrollbar */
+    }
+    .menu-button {
+        flex-shrink: 0; /* Prevent buttons from shrinking */
+        margin-bottom: 1rem;
+    }
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Transactions System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Banking Transactions System</h1>
+        
+    </header>
+
+    <main>
+        <div class="menu">
+            <button class="menu-button" onclick="showView('create-account-view', this)"><i class="fas fa-user-plus"></i> New Account</button>
+            <button class="menu-button" onclick="showView('transaction-view', this)"><i class="fas fa-money-bill-transfer"></i> Deposit/Withdraw</button>
+            <button class="menu-button" onclick="showView('enquiry-view', this)"><i class="fas fa-search-dollar"></i> Balance Enquiry</button>
+            <button class="menu-button" onclick="showView('all-accounts-view', this); displayAllAccounts();"><i class="fas fa-users"></i> All Accounts</button>
+            <button class="menu-button" onclick="showView('modify-account-view', this)"><i class="fas fa-edit"></i> Modify Account</button>
+            <button class="menu-button" onclick="showView('close-account-view', this)"><i class="fas fa-user-slash"></i> Close Account</button>
+        </div>
+
+        <div class="content">
+            <div id="welcome-view" class="view active-view">
+                <div class="welcome-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3>Hello, and welcome to the bank. What can we do for you today?</h3>
+                <p>Select an action from the menu to manage your bank accounts. All data is securely saved in your browser.</p>
+            </div>
+
+            <div id="create-account-view" class="view">
+                <h3><i class="fas fa-user-plus"></i> Create New Account</h3>
+                <form id="createAccountForm">
+                    <div class="form-group">
+                        <label for="acno">Account Number</label>
+                        <input type="number" id="acno" placeholder="e.g., 1001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Account Holder Name</label>
+                        <input type="text" id="name" placeholder="e.g., Suresh Kumar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Account Type (C/S)</label>
+                        <input type="text" id="type" placeholder="Enter 'C' for Current or 'S' for Savings" maxlength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="deposit">Initial Deposit (₹)</label>
+                        <input type="number" id="deposit" placeholder="Min 500 (S) / 1000 (C)" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+            </div>
+
+            <div id="all-accounts-view" class="view">
+                <h3><i class="fas fa-users"></i> All Account Holders</h3>
+                <table id="accountsTable">
+                    <thead>
+                        <tr>
+                            <th>A/c No.</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Balance (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div id="transaction-view" class="view">
+                <h3><i class="fas fa-money-bill-transfer"></i> Deposit / Withdraw</h3>
+                <form id="transactionForm">
+                    <div class="form-group">
+                        <label for="trans-acno">Account Number</label>
+                        <input type="number" id="trans-acno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trans-amount">Amount (₹)</label>
+                        <input type="number" id="trans-amount" required min="1">
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary" onclick="performTransaction('deposit')">Deposit</button>
+                        <button type="button" class="btn btn-warning" onclick="performTransaction('withdraw')">Withdraw</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="enquiry-view" class="view">
+                <h3><i class="fas fa-search-dollar"></i> Balance Enquiry</h3>
+                <form id="enquiryForm">
+                    <div class="form-group">
+                        <label for="enquiry-acno">Enter Account Number</label>
+                        <input type="number" id="enquiry-acno" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <div id="accountDetails" class="hidden"></div>
+            </div>
+
+            <div id="modify-account-view" class="view">
+                <h3><i class="fas fa-edit"></i> Modify Account</h3>
+                <form id="findModifyAccountForm">
+                     <div class="form-group">
+                        <label for="modify-search-acno">Enter Account No. to Find</label>
+                        <input type="number" id="modify-search-acno" required>
+                     </div>
+                     <button type="submit" class="btn btn-primary">Find Account</button>
+                </form>
+                <form id="modifyAccountForm" class="hidden">
+                    <hr>
+                    <h4>Editing Account #<span id="editing-acno"></span></h4>
+                    <div class="form-group">
+                        <label for="modify-name">Account Holder Name</label>
+                        <input type="text" id="modify-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modify-type">Account Type (C/S)</label>
+                        <input type="text" id="modify-type" maxlength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modify-deposit">Balance (₹)</label>
+                        <input type="number" id="modify-deposit" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Account</button>
+                </form>
+            </div>
+
+            <div id="close-account-view" class="view">
+                <h3><i class="fas fa-user-slash"></i> Close an Account</h3>
+                <form id="deleteAccountForm">
+                    <div class="form-group">
+                        <label for="delete-acno">Enter Account No. to Delete</label>
+                        <input type="number" id="delete-acno" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Delete Account Permanently</button>
+                </form>
+            </div>
+
+            <div id="message-area"></div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
